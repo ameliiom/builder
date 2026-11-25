@@ -1,7 +1,22 @@
 {
   "key.builder.mode": "وضع البنّاء",
+  "key.builder.undo": "البنّاء: تراجع عن آخر شكل",
   "builder.mode.off": "البنّاء: طافي",
   "builder.mode.line": "البنّاء: صف",
   "builder.mode.wall": "البنّاء: جدار",
-  "builder.mode.floor": "البنّاء: أرضية"
+  "builder.mode.floor": "البنّاء: أرضية",
+  "builder.undo.none": "البنّاء: ما فيه شي ترجعه",
+  "builder.undo.done": "البنّاء: رجع %s بلوك",
+  "builder.config.all_comforts": "كل الراحات بدون المهارات",
+  "builder.tree.construction": "البناء",
+  "builder.node.size_1": "أشكال أكبر 1",
+  "builder.node.size_2": "أشكال أكبر 2",
+  "builder.node.size_3": "أشكال أكبر 3",
+  "builder.node.shapes": "جدران وأرضيات",
+  "builder.node.undo": "تراجع",
+  "skills.perk.builder.size.16": "الشكل يوصل لين 16 بلوك",
+  "skills.perk.builder.size.64": "الشكل يوصل لين 64 بلوك",
+  "skills.perk.builder.size.256": "الشكل يوصل لين 256 بلوك",
+  "skills.perk.builder.shapes": "وضع الجدار والأرضية",
+  "skills.perk.builder.undo": "U يرجع آخر شكل خلال 10 ثواني"
 }

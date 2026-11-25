@@ -1,7 +1,22 @@
 {
   "key.builder.mode": "Builder mode",
+  "key.builder.undo": "Builder: undo the last shape",
   "builder.mode.off": "Builder: off",
   "builder.mode.line": "Builder: line",
   "builder.mode.wall": "Builder: wall",
-  "builder.mode.floor": "Builder: floor"
+  "builder.mode.floor": "Builder: floor",
+  "builder.undo.none": "Builder: nothing to undo",
+  "builder.undo.done": "Builder: %s blocks taken back",
+  "builder.config.all_comforts": "All comforts without Skills",
+  "builder.tree.construction": "Construction",
+  "builder.node.size_1": "Bigger Shapes I",
+  "builder.node.size_2": "Bigger Shapes II",
+  "builder.node.size_3": "Bigger Shapes III",
+  "builder.node.shapes": "Walls And Floors",
+  "builder.node.undo": "Undo",
+  "skills.perk.builder.size.16": "A shape holds up to 16 blocks",
+  "skills.perk.builder.size.64": "A shape holds up to 64 blocks",
+  "skills.perk.builder.size.256": "A shape holds up to 256 blocks",
+  "skills.perk.builder.shapes": "The Wall and Floor modes",
+  "skills.perk.builder.undo": "U takes your last shape back within 10 seconds"
 }

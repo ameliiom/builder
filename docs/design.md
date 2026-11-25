@@ -1,4 +1,4 @@
-# Builder: requirements (draft for the owner)
+# Builder: design
 
 Place a block, then another further on: a line, a wall or a floor of that block fills the space
 between, as you placed it (stairs keep their facing), paid from your inventory. A preview in the
@@ -44,7 +44,21 @@ A wall, a floor or a long row takes two clicks instead of dozens, for the two of
 | Paid from the hand | 16 stairs → 7 (the one placed by hand and 8 more) |
 | `PlayerRef::place_block` | writes the block with neighbour updates (fences connect); it does no checks, no sound, no payment, so the mod does those (air, may-build, entities, sound, items) |
 
-## 6. Risks and answers
+## 6. Built (0.2.0), measured in the game (2026-11-25)
+
+| Case | Result |
+|---|---|
+| Z with no comfort | off and line only (Wall and Floor need the node) |
+| Line of stone bricks, no comfort (8), a cow standing at one block | 8 placed: the cap kept the 8 nearest the first block and the cow's block stayed empty; 8 bricks paid |
+| Floor 5×5 with Walls And Floors and Bigger Shapes II | all 25 in place, 25 bricks paid |
+| U right after | the 23 the shape placed gone, 23 bricks back in the inventory; the 2 placed by hand stay |
+| Preview | the block where the next would go outlined in the game's thin dark outline while the shape waits |
+| Stairs (skeleton) | 7 in a row, all facing as the first |
+
+The mode key moved from B to **Z**: B opens Horizon's emote wheel and Y another mod's screen (both
+seen in the game); Z, J and U opened nothing. Undo is U.
+
+## 7. Risks and answers
 
 | Risk | Answer |
 |---|---|

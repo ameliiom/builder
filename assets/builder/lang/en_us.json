@@ -1,0 +1,7 @@
+{
+  "key.builder.mode": "Builder mode",
+  "builder.mode.off": "Builder: off",
+  "builder.mode.line": "Builder: line",
+  "builder.mode.wall": "Builder: wall",
+  "builder.mode.floor": "Builder: floor"
+}

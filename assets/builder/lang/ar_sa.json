@@ -1,0 +1,7 @@
+{
+  "key.builder.mode": "وضع البنّاء",
+  "builder.mode.off": "البنّاء: طافي",
+  "builder.mode.line": "البنّاء: صف",
+  "builder.mode.wall": "البنّاء: جدار",
+  "builder.mode.floor": "البنّاء: أرضية"
+}

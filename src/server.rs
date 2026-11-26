@@ -2,7 +2,7 @@
 //! second. Each block goes in as the first one was placed (its state copied), only into a place
 //! that may take it (replaceable, nobody standing in it, the player may build there), paid from
 //! the inventory first. The last shape can be taken back for a while (Undo).
-use crate::bag;
+use crate::kit;
 use crate::payloads::{self, Start as StartView};
 use crate::perks::Comforts;
 use crate::shape::{self, Mode, Pos};
@@ -56,8 +56,7 @@ fn with<R>(f: impl FnOnce(&mut State) -> R) -> R {
 }
 
 pub fn comforts(host: &dyn ServerHost, p: PlayerRef) -> Comforts {
-    let all = host.setting(crate::MOD_ID, crate::setting::ALL_COMFORTS).is_some_and(|v| v.trim() == "true");
-    Comforts::of(&p.entity().tags(host).unwrap_or_default(), all)
+    kit::comforts::read(host, crate::MOD_ID, p, Comforts::of)
 }
 
 /// Tells the client the shape waiting for its second block (or none), for its preview.
@@ -233,7 +232,7 @@ pub fn undo(host: &mut dyn ServerHost, p: PlayerRef) {
             }
             left -= n;
         }
-        bag::give(host, p, level, at, stacks);
+        kit::inventory::give(host, crate::MOD_ID, p, level, at, stacks);
     }
     let _ = p.action_bar(host, Text::translate("builder.undo.done", vec![Text::literal(back.to_string())]));
 }

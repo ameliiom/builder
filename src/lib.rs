@@ -6,7 +6,14 @@
 //! - **The comforts** (`perks.rs`): the tags the tree gives, read with no code tie to Skills.
 //! - **The server** (`server.rs`): modes, first blocks, the filling paid and checked, undo.
 //! - **The client** (`client.rs`): the preview while a shape waits for its second block.
-mod bag;
+// Kit (ameliiom/kit), the shared code: the installed Kit mod, or its source in place for
+// local builds (`kit_local`, horizon-mods/.cargo/config.toml).
+#[cfg(kit_local)]
+#[allow(dead_code)]
+#[path = "../../kit/src/lib.rs"]
+mod kit;
+#[cfg(not(kit_local))]
+use ::kit;
 mod client;
 mod payloads;
 pub mod perks;
@@ -15,7 +22,7 @@ pub mod shape;
 
 use mod_api::{
     ClientHost, ClientTickPreEvent, EntityPlaceEvent, Flow, Hooks, IPayloadContext, KeyRegistration, PayloadId, PlayerLoggedOutEvent, PlayerRef,
-    Registrar, RegistrationContext, RenderLevelStageEvent, ServerHost, ServerTickEvent, ServerTickPhase, SettingSpec, VarInt,
+    Registrar, RegistrationContext, RenderLevelStageEvent, ServerHost, ServerTickEvent, ServerTickPhase, VarInt,
 };
 #[allow(unused_imports)]
 use mod_api::prelude::*;
@@ -27,12 +34,6 @@ pub(crate) const PLACED: &str = "placed";
 /// measured 2026-11-25). Undo: U, free as well.
 const MODE_KEY: &str = "mode";
 const UNDO_KEY: &str = "undo";
-
-/// Settings (Options > Mods > Builder).
-pub(crate) mod setting {
-    /// Opens every comfort for a world that doesn't use Skills.
-    pub const ALL_COMFORTS: &str = "all_comforts";
-}
 
 fn on_key(request: payloads::Key, cx: &mut dyn IPayloadContext) -> Result<(), String> {
     let p: PlayerRef = cx.player().map_err(|e| format!("{e:?}"))?;
@@ -70,7 +71,8 @@ impl Hooks for Mod {
         if let Err(e) = r.register_custom_stat(PLACED) {
             eprintln!("[builder] declaring statistic {PLACED}: {e}");
         }
-        if let Err(e) = r.register_setting(SettingSpec::toggle(setting::ALL_COMFORTS, "builder.config.all_comforts", false)) {
+        // Settings (Options > Mods > Builder): every comfort without Skills.
+        if let Err(e) = r.register_setting(kit::comforts::ALL.spec(MOD_ID)) {
             eprintln!("[builder] setting: {e:?}");
         }
         let mut handlers = r.payload_handlers();

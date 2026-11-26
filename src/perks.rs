@@ -1,6 +1,7 @@
 //! The comforts earned in the Skills tree Building (nodes Builder adds to it), with no code tie to Skills: an unlocked
 //! node gives the player a vanilla tag that Builder reads, the tree ships as a data file only
 //! Skills reads. Without Skills, the server setting `all_comforts` opens them.
+use crate::kit::comforts::{best, has};
 use crate::shape::Mode;
 
 /// Tags `builder.size.<n>`: how many blocks a shape holds (8 without any).
@@ -24,8 +25,8 @@ impl Comforts {
         if all {
             return Comforts { size: SIZE_MAX, shapes: true, undo: true };
         }
-        let size = tags.iter().filter_map(|t| t.strip_prefix(SIZE)?.parse::<usize>().ok()).fold(SIZE_START, usize::max).min(SIZE_MAX);
-        Comforts { size, shapes: tags.iter().any(|t| t == SHAPES), undo: tags.iter().any(|t| t == UNDO) }
+        let size = best(tags, SIZE, SIZE_MAX).max(SIZE_START);
+        Comforts { size, shapes: has(tags, SHAPES), undo: has(tags, UNDO) }
     }
 
     /// The mode after `mode` that this player has (Line always; Wall and Floor with the comfort).
@@ -63,18 +64,13 @@ mod tests {
         assert_eq!(all.next_mode(Mode::Line), Mode::Wall);
     }
 
-    /// Both languages hold the same keys, and every node, perk and mode shown has its line.
+    /// Every node, perk and mode shown has its line (that both languages hold the same keys is
+    /// the workspace's `tools/lang_gate.py`).
     #[test]
-    fn every_shown_key_is_in_both_languages() {
+    fn every_shown_key_has_its_line() {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
-        let keys = |lang: &str| -> Vec<String> {
-            let text = std::fs::read_to_string(root.join(format!("assets/builder/lang/{lang}.json"))).unwrap();
-            let mut k: Vec<String> = text.lines().filter_map(|l| l.trim().strip_prefix('"')?.split('"').next().map(str::to_owned)).collect();
-            k.sort();
-            k
-        };
-        let en = keys("en_us");
-        assert_eq!(en, keys("ar_sa"));
+        let text = std::fs::read_to_string(root.join("assets/builder/lang/en_us.json")).unwrap();
+        let en: Vec<String> = text.lines().filter_map(|l| l.trim().strip_prefix('"')?.split('"').next().map(str::to_owned)).collect();
         let tree = std::fs::read_to_string(root.join("data/builder/skills/building.json")).unwrap();
         let quoted = |field: &str| -> Vec<String> { tree.split(&format!("\"{field}\"")).skip(1).filter_map(|r| r.split('"').nth(1).map(str::to_owned)).collect() };
         for title in quoted("title") {
@@ -108,9 +104,9 @@ mod tests {
     fn the_shipped_tree_gives_exactly_the_tags_builder_reads() {
         let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("data/builder/skills/building.json");
         let text = std::fs::read_to_string(path).unwrap();
-        let given: Vec<String> = text.split("\"tag\"").skip(1).filter_map(|r| r.split('"').nth(1).map(str::to_owned)).collect();
+        let given = crate::kit::comforts::tree_tags(&text);
         for tag in &given {
-            let read = tag == SHAPES || tag == UNDO || tag.strip_prefix(SIZE).is_some_and(|n| n.parse::<usize>().is_ok());
+            let read = tag == SHAPES || tag == UNDO || crate::kit::comforts::is_level(tag, &[SIZE]);
             assert!(read, "the tree gives {tag}, which Builder never reads");
         }
         assert_eq!(Comforts::of(&given, false), Comforts::of(&[], true), "some comfort has no node, or its node stops short");

@@ -1,12 +1,16 @@
 id = "builder"
 name = "Builder"
-version = "0.3.0"
+version = "0.3.1"
 description = "Place a block, then another further on: a line, a wall or a floor of it fills the space between."
 authors = ["ameliiom"]
 license = "MIT"
 api = "0.2"
 side = "both"
 capabilities = ["registries"]
+
+[dependencies]
+# The shared code of ameliiom's mods (settings, comforts, inventory, outline, ...).
+kit = "^0.1"
 
 [native]
 game = "26.3"

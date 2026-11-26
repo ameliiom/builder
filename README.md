@@ -12,6 +12,8 @@ For [Horizon](https://playhorizon.dev) (Minecraft: Java Edition 26.3 in Rust). P
 With [Skills](https://github.com/ameliiom/skills) 0.2 or later, Builder adds its comforts to Skills' own **Building** tree (two new rows): lines of 8 from the start, then **Bigger Shapes** I/II/III (16, 64, 256 blocks), **Walls And Floors**, **Undo**. Building grows from every block you place by hand, and Builder adds the blocks its shapes place. From 0.3.0 the separate Construction tree is gone: progress earned in it resets, and your Building points pay for these nodes. Without Skills, the server setting **All comforts without Skills** opens them.
 
 ## Install
+Needs [Kit](https://github.com/ameliiom/kit) 0.1 or later, the shared code of these mods, installed the same way (`kit.hmod`, `mod.kit:true`).
+
 1. Copy `builder.hmod` into `%APPDATA%\horizon\horizon-native-mods\`.
 2. Add the line `mod.builder:true` to `%APPDATA%\horizon\horizon-mods.txt`.
 3. Build: the launcher's Mods page **Build**, or `horizon-launcher native-build --instance horizon --trust-native-code`. A native mod runs with your rights: install it only from a source you trust.

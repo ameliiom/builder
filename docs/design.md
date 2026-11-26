@@ -28,7 +28,7 @@ A wall, a floor or a long row takes two clicks instead of dozens, for the two of
   short of blocks, the shape stops where they run out.
 - **Safe**: only into air or replaceable blocks (grass, snow), never where a player or mob stands,
   and only where you may build (spawn protection, other mods' claims).
-- **Undo**: Ctrl+Z within 10 seconds takes the last shape back into your inventory.
+- **Undo**: U (rebindable in Controls) within 10 seconds takes the last shape back into your inventory.
 
 ## 4. Comforts from Skills (nodes added to Skills' Building tree)
 

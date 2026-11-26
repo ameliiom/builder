@@ -9,7 +9,7 @@ For [Horizon](https://playhorizon.dev) (Minecraft: Java Edition 26.3 in Rust). P
 - **U** takes your last shape back into your inventory within 10 seconds.
 
 ## Comforts from Skills
-With [Skills](https://github.com/ameliiom/skills) 0.2 or later, a tree **Construction** grows as you build with it: lines of 8 from the start, then **Bigger Shapes** I/II/III (16, 64, 256 blocks), **Walls And Floors**, **Undo**. Without Skills, the server setting **All comforts without Skills** opens them.
+With [Skills](https://github.com/ameliiom/skills) 0.2 or later, Builder adds its comforts to Skills' own **Building** tree (two new rows): lines of 8 from the start, then **Bigger Shapes** I/II/III (16, 64, 256 blocks), **Walls And Floors**, **Undo**. Building grows from every block you place by hand, and Builder adds the blocks its shapes place. From 0.3.0 the separate Construction tree is gone: progress earned in it resets, and your Building points pay for these nodes. Without Skills, the server setting **All comforts without Skills** opens them.
 
 ## Install
 1. Copy `builder.hmod` into `%APPDATA%\horizon\horizon-native-mods\`.

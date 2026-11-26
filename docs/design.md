@@ -30,7 +30,19 @@ A wall, a floor or a long row takes two clicks instead of dozens, for the two of
   and only where you may build (spawn protection, other mods' claims).
 - **Undo**: Ctrl+Z within 10 seconds takes the last shape back into your inventory.
 
-## 4. Comforts from Skills (its own tree, Construction, as Storage and Gathering do)
+## 4. Comforts from Skills (nodes added to Skills' Building tree)
+
+From 0.3.0 the comforts are two rows Builder adds to `skills:building` (`data/builder/skills/building.json`,
+`"extends": "skills:building"`), not a tree of their own: Building already means "placing blocks", and
+one meaning has one tree (owner's correction, 2026-11-26). Node ids carry the prefix `builder_` and sit
+in rows 3 and 4, under Building's own three rows. The only experience source Builder adds is its
+statistic `builder:placed` (0.1 a block): `PlayerRef::place_block` fires no place event, so Skills'
+`placed` source never sees a shape's blocks. The old Construction tree's progress resets: no file defines
+it any more, so its points no longer count. Measured in the game (2026-11-26): the Building tab
+showed Builder's five nodes in rows 4 and 5 under its own (`docs/building-tree.png`), no
+Construction tab; unlocking Bigger Shapes I gave `builder.size.16`, then Walls And Floors gave
+`builder.shapes`, and the points went from 23 to 22 after the first. A test keeps the file an addition: it must extend
+`skills:building`, define no title and prefix every node id.
 
 | Always | Earned |
 |---|---|

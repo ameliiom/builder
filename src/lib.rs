@@ -1,6 +1,6 @@
 //! Builder: place a block, then another further on, and a line, a wall or a floor of it fills the
 //! space between, previewed in the game's own outline; the bigger comforts are earned in the Skills
-//! tree Construction. See `docs/design.md`.
+//! tree Building (nodes Builder adds to it). See `docs/design.md`.
 //!
 //! - **Shapes** (`shape.rs`): the positions between two blocks, by mode, on plain values.
 //! - **The comforts** (`perks.rs`): the tags the tree gives, read with no code tie to Skills.
@@ -21,7 +21,7 @@ use mod_api::{
 use mod_api::prelude::*;
 
 pub(crate) const MOD_ID: &str = "builder";
-/// `builder:placed`: every block a shape places (the Construction tree's experience).
+/// `builder:placed`: every block a shape places (Building experience Skills can't see: `place_block` fires no place event).
 pub(crate) const PLACED: &str = "placed";
 /// The mode key: Z, free in vanilla and the other mods (B opens Horizon's emote wheel, Y a mod screen;
 /// measured 2026-11-25). Undo: U, free as well.

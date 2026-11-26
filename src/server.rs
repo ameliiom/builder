@@ -132,7 +132,7 @@ pub fn tick(host: &mut dyn ServerHost) {
     jobs.retain_mut(|job| {
         let going = step(host, job);
         if !going {
-            // Each block a shape placed counts toward the Construction tree.
+            // Each block a shape placed counts toward the Building tree.
             if let Some(p) = host.players().server_players().into_iter().find(|p| p.uuid() == job.player)
                 && !job.placed.is_empty()
                 && !p.award_stat(host, mod_api::StatType::Custom, &format!("{}:{}", crate::MOD_ID, crate::PLACED), job.placed.len() as i32)

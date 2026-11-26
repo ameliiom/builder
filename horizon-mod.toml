@@ -1,6 +1,6 @@
 id = "builder"
 name = "Builder"
-version = "0.2.0"
+version = "0.3.0"
 description = "Place a block, then another further on: a line, a wall or a floor of it fills the space between."
 authors = ["ameliiom"]
 license = "MIT"

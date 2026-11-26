@@ -1,12 +1,5 @@
 {
-  "title": "builder.tree.construction",
-  "icon": "minecraft:bricks",
-  "background": "minecraft:block/oak_planks",
-  "order": 8,
-  "curve": {
-    "base": 20,
-    "step": 10
-  },
+  "extends": "skills:building",
   "sources": [
     {
       "stat": "minecraft:custom",
@@ -16,12 +9,12 @@
   ],
   "nodes": [
     {
-      "id": "size_1",
+      "id": "builder_size_1",
       "title": "builder.node.size_1",
       "icon": "minecraft:oak_planks",
       "at": [
         0,
-        0
+        3
       ],
       "cost": 1,
       "perks": [
@@ -31,16 +24,16 @@
       ]
     },
     {
-      "id": "size_2",
+      "id": "builder_size_2",
       "title": "builder.node.size_2",
       "icon": "minecraft:stone_bricks",
       "at": [
         1,
-        0
+        3
       ],
       "cost": 2,
       "needs": [
-        "size_1"
+        "builder_size_1"
       ],
       "perks": [
         {
@@ -49,16 +42,16 @@
       ]
     },
     {
-      "id": "size_3",
+      "id": "builder_size_3",
       "title": "builder.node.size_3",
       "icon": "minecraft:quartz_block",
       "at": [
         2,
-        0
+        3
       ],
       "cost": 4,
       "needs": [
-        "size_2"
+        "builder_size_2"
       ],
       "perks": [
         {
@@ -67,16 +60,16 @@
       ]
     },
     {
-      "id": "shapes",
+      "id": "builder_shapes",
       "title": "builder.node.shapes",
       "icon": "minecraft:scaffolding",
       "at": [
         0,
-        1
+        4
       ],
       "cost": 2,
       "needs": [
-        "size_1"
+        "builder_size_1"
       ],
       "perks": [
         {
@@ -85,16 +78,16 @@
       ]
     },
     {
-      "id": "undo",
+      "id": "builder_undo",
       "title": "builder.node.undo",
       "icon": "minecraft:clock",
       "at": [
         1,
-        1
+        4
       ],
       "cost": 2,
       "needs": [
-        "shapes"
+        "builder_shapes"
       ],
       "perks": [
         {

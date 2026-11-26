@@ -8,7 +8,6 @@
   "builder.undo.none": "Builder: nothing to undo",
   "builder.undo.done": "Builder: %s blocks taken back",
   "builder.config.all_comforts": "All comforts without Skills",
-  "builder.tree.construction": "Construction",
   "builder.node.size_1": "Bigger Shapes I",
   "builder.node.size_2": "Bigger Shapes II",
   "builder.node.size_3": "Bigger Shapes III",

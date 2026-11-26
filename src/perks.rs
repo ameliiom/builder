@@ -1,4 +1,4 @@
-//! The comforts earned in the Skills tree Construction, with no code tie to Skills: an unlocked
+//! The comforts earned in the Skills tree Building (nodes Builder adds to it), with no code tie to Skills: an unlocked
 //! node gives the player a vanilla tag that Builder reads, the tree ships as a data file only
 //! Skills reads. Without Skills, the server setting `all_comforts` opens them.
 use crate::shape::Mode;
@@ -75,7 +75,7 @@ mod tests {
         };
         let en = keys("en_us");
         assert_eq!(en, keys("ar_sa"));
-        let tree = std::fs::read_to_string(root.join("data/builder/skills/construction.json")).unwrap();
+        let tree = std::fs::read_to_string(root.join("data/builder/skills/building.json")).unwrap();
         let quoted = |field: &str| -> Vec<String> { tree.split(&format!("\"{field}\"")).skip(1).filter_map(|r| r.split('"').nth(1).map(str::to_owned)).collect() };
         for title in quoted("title") {
             assert!(en.contains(&title), "no line for {title}");
@@ -88,10 +88,25 @@ mod tests {
         }
     }
 
+    /// Builder adds to Skills' Building tree and never defines a tree of its own (one meaning,
+    /// one tree): the file extends `skills:building`, has no title, and its node ids carry
+    /// Builder's prefix so they never meet Building's own.
+    #[test]
+    fn the_nodes_extend_building_instead_of_a_tree_of_their_own() {
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("data/builder/skills");
+        let files: Vec<_> = std::fs::read_dir(&dir).unwrap().map(|e| e.unwrap().path()).collect();
+        assert_eq!(files.len(), 1, "one file, the addition to Building: {files:?}");
+        let text = std::fs::read_to_string(&files[0]).unwrap();
+        assert!(text.contains("\"extends\": \"skills:building\""));
+        assert!(!text.contains("\"title\": \"builder.tree"), "a tree of Builder's own");
+        let ids: Vec<&str> = text.split("\"id\"").skip(1).filter_map(|r| r.split('"').nth(1)).collect();
+        assert!(!ids.is_empty() && ids.iter().all(|id| id.starts_with("builder_")), "{ids:?}");
+    }
+
     /// The tree file gives exactly the tags Builder reads, and every comfort has a node.
     #[test]
     fn the_shipped_tree_gives_exactly_the_tags_builder_reads() {
-        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("data/builder/skills/construction.json");
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("data/builder/skills/building.json");
         let text = std::fs::read_to_string(path).unwrap();
         let given: Vec<String> = text.split("\"tag\"").skip(1).filter_map(|r| r.split('"').nth(1).map(str::to_owned)).collect();
         for tag in &given {
